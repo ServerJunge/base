@@ -1,22 +1,33 @@
-@extends('master')
+@extends('login')
 
 @section('content')
 
-{{ Form::open(array('route' => 'sessions.store')) }}
-	<ul>
-		<li>
-			{{ Form::label('email', 'Email:') }}
-			{{ Form::text('email') }}
-		</li>
-		<li>
-			{{ Form::label('password', 'Passwort:') }}
-			{{ Form::password('password') }}
-		</li>
-		<li>
-			{{ Form::submit() }}
-		</li>
+<div class="box box-primary">
+    <div class="box-header">
+<br>
+    </div>
 
-	</ul>
+{{ Form::open(array('route' => 'sessions.store', 'class' => 'form-horizontal')) }}
+	
+	<div class="form-group">
+			{{ Form::label('email', 'Email:', ['class' => 'col-sm-1 control-label']) }}
+			<div class="col-sm-6">
+			{{ Form::text('email', null, ['class' => 'form-control']) }}
+			</div>
+	</div>
+	<div class="form-group">
+			{{ Form::label('password', 'Passwort:', ['class' => 'col-sm-1 control-label']) }}
+			<div class="col-sm-6">
+			{{ Form::password('password', ['class' => 'form-control']) }}
+			</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-1 col-sm-6">
+			{{ Form::submit('Anmelden', ['class' => 'btn btn-default']) }}
+		</div>
+	</div>
+
 {{ Form::close() }}
+<br>
 
 @stop

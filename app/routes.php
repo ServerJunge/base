@@ -10,17 +10,16 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+// Bind route parameters for User.
+Route::model('user', 'User');
+Route::get('/users/delete/{user}', 'UsersController@delete');
 
-Route::get('profile', function()
+Route::get('/', ['as' => 'home', function()
 {
-	return "Welcome. Your email adress is " . Auth::user()->email;
-});
+	return View::make('dashboard');
+}])->before('auth');
 
+Route::get('users', 'UsersController@index');
 Route::get('login', 'SessionsController@create');
 Route::get('logout', 'SessionsController@destroy');
-Route::resource('sessions', 'SessionsController');
-
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);

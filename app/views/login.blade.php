@@ -73,7 +73,7 @@
                                 <!-- Menu Body -->
                                 <li class="user-body">
                                     <div class="col-xs-12 text-center">
-                                        <a href="{{ URL::to('logout') }}"><span class="fa fa-sign-out"></span>Abmelden</a>
+                                        <a href="#"><span class="fa fa-sign-out"></span> Abmelden</a>
                                     </div>
                                 </li>
                     		</ul>
@@ -93,23 +93,7 @@
                         
                         
                     </div>
-                    <ul class="sidebar-menu">
-
-    					<li>
-    						<a href="{{ URL::to('/') }}"><span class="fa fa-dashboard"></span> Dashboard</a>
-    					</li>
-
-                        <li>
-                            <a href="{{ URL::to('users') }}"><span class="fa fa-user"></span> Benutzer</a>
-                        </li>
-
-                        <li>
-                            <a href="#"><span class="fa fa-gavel"></span> Berechtigungen</a>
-                        </li>
-
-                    
-                       
-                    </ul>
+                   
                 </section>
                 <!-- /.sidebar -->
             </aside>
@@ -119,8 +103,8 @@
                 <section class="content-header">
                     <!-- Content Header (Page header) -->
                     <h1>
-                        @yield('title')
-                        <small>@yield('description')</small>
+                        Anmeldung
+                        <small></small>
                     </h1>
 
                 </section>
