@@ -12,7 +12,8 @@ class UsersController extends \BaseController {
 	public function delete(User $user)
     {
         // Show delete confirmation page.
-        return Redirect::action('UsersController@index');
+        $user->delete();
+        return Redirect::action('UsersController@index')->with('flash_message', 'Benutzer' . ' ' . $user->username . ' ' . 'wurde gelöscht.');
     }
 
     public function handleDelete()

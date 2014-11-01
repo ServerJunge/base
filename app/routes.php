@@ -10,6 +10,14 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+// MailStore Routes
+Route::get('/mailstore/setuserpassword', 'MailstoreController@setuserpassword');
+Route::get('/mailstore/getinstances', 'MailstoreController@getinstances');
+Route::get('/mailstore/getinstancestatistics', 'MailstoreController@getinstancestatistics');
+Route::get('/mailstore/getservicestatus', 'MailstoreController@getservicestatus');
+Route::get('/mailstore/getuserinfo', 'MailstoreController@getuserinfo');
+
 // Bind route parameters for User.
 Route::model('user', 'User');
 Route::get('/users/delete/{user}', 'UsersController@delete');

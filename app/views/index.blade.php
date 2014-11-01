@@ -38,9 +38,9 @@
                 <tr>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->created_at }}</td>
+                    <td>{{ $user->created_at->diffForHumans() }}</td>
                     <td>
-                        <a href="#" class="btn btn-default btn-sm">Edit</a>
+                        <a href="#" class="btn btn-default btn-sm">Bearbeiten</a>
                         <a href="{{ action('UsersController@delete', $user->id) }}" class="btn btn-danger btn-sm">Löschen</a>
                     </td>
                 </tr>
