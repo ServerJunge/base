@@ -17,6 +17,13 @@ Route::get('/mailstore/getinstances', 'MailstoreController@getinstances');
 Route::get('/mailstore/getinstancestatistics', 'MailstoreController@getinstancestatistics');
 Route::get('/mailstore/getservicestatus', 'MailstoreController@getservicestatus');
 Route::get('/mailstore/getuserinfo', 'MailstoreController@getuserinfo');
+Route::get('/mailstore/getenvironmentinfo', 'MailstoreController@getenvironmentinfo');
+Route::get('/mailstore/getstores', 'MailstoreController@getstores');
+Route::get('/mailstore/getworkerresults', 'MailstoreController@getworkerresults');
+Route::get('/mailstore/getinstanceprocesslivestatistics', 'MailstoreController@getinstanceprocesslivestatistics');
+Route::get('/mailstore/getusers', 'MailstoreController@getusers');
+
+
 
 // Bind route parameters for User.
 Route::model('user', 'User');
