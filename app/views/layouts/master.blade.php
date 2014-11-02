@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>BaseApp</title>
+        <title>MailArchiv</title>
 
         <!-- bootstrap 3.0.2 -->
         <link href="{{ url('adminlte/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -42,7 +42,7 @@
         <header class="header">
             <a href="/" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Base App
+                MailArchiv
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -107,8 +107,6 @@
                             <a href="#"><span class="fa fa-gavel"></span> Berechtigungen</a>
                         </li>
 
-                    
-                       
                     </ul>
                 </section>
                 <!-- /.sidebar -->

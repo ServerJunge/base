@@ -42,7 +42,7 @@
         <header class="header">
             <a href="/" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Base App
+                Mailarchiv
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -90,8 +90,7 @@
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        
-                        
+                    <!-- Placeholder -->    
                     </div>
                    
                 </section>

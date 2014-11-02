@@ -4,221 +4,63 @@
 
 class MailstoreController extends \BaseController {
 
-public function SetUserPassword()
+public function dashboard()
     {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/SetUserPassword';
-    $response = Httpful::post($uri)             
+    // request all instances
+        $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstances';
+        $response = Httpful::post($uri)             
 
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceID' => 'computechgmbh',
-            'userName' => 'dominik geimer',
-            'password' => 'hallo'
+            ->authenticateWith('admin', 'RemoteCT12$') 
+            ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
+            ->body(array(
+                'instanceFilter' => '*',
             ))
         ->sendsType(\Httpful\Mime::FORM)
         ->send();  
-        dd($response->body->statusCode);
-    }
-
-public function GetInstances()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstances';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceFilter' => '*',
-            ))
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-// Number of Costumers
-
-       // dd($response->body);
- 
+    // save the response
        $results = $response->body->result;
+    // Count the number of costumer
+        $numberOfCostumers = count($response->body->result);
 
-          $numberCostumers = count($response->body->result);
+    // requests the statistics for one instance
+        $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstanceStatistics';
+        $response = Httpful::post($uri)             
 
-
-
-
-
-$uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstanceStatistics';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceID' => 'computechgmbh',
+            ->authenticateWith('admin', 'RemoteCT12$') 
+            ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
+            ->body(array(
+                'instanceID' => 'computechgmbh',
             ))
         ->sendsType(\Httpful\Mime::FORM)
         ->send();  
-
+    // when the response is empty set default values
         if (empty($response->body->result->numberOfMessages)) {
             $numberOfMessages = '-';
             $totalSizeMB = '-';
         }
-
+    // if it is not empty use the values
         else {
-
-       $numberOfMessages = $response->body->result->numberOfMessages;
-
-        $totalSizeMB = $response->body->result->totalSizeMB;
-    }
+            // Number of messages for one instance
+            $numberOfMessages = $response->body->result->numberOfMessages;
+            // Total Size of one instance
+            $totalSizeMB = $response->body->result->totalSizeMB;
+        }
         
+    // request all users for one instance    
+        $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetUsers';
+        $response = Httpful::post($uri)             
 
-
- $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetUsers';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->body(array(
-            'instanceID' => 'computechgmbh'
-            ))
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-
+            ->authenticateWith('admin', 'RemoteCT12$') 
+            ->body(array(
+                'instanceID' => 'computechgmbh'
+                ))
+            ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
+            ->sendsType(\Httpful\Mime::FORM)
+            ->send();  
+    // Count the number of users for one instance
         $numberOfUsers = count($response->body->result);
 
-
-
-
-
-
-
-        return View::make('dashboard', compact('numberCostumers', 'results', 'totalSizeMB', 'numberOfMessages', 'numberOfUsers'));
-
-
-
-    }
-
-public function GetInstanceStatistics()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstanceStatistics';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceID' => 'computechgmbh',
-            ))
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-public function GetServiceStatus()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetServiceStatus';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-public function GetUserInfo()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetUserInfo';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceID' => 'computechgmbh',
-            'userName' => 'dominik geimer'
-            ))
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-public function GetEnvironmentInfo()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetEnvironmentInfo';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-public function GetStores()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetEnvironmentInfo';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-//WORKER RESULTS
-public function GetWorkerResults()
-    {
-
-        $howOldAmI = Carbon::createFromDate(1985, 7, 12)->age;
-        $lastWeek = Carbon::now()->subWeek()->toRfc2822String();
-        // $lastWeek = Carbon::now()->subWeek();
-
-       dd($howOldAmI);
-
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetWorkerResults';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceID' => 'computechgmbh',
-            'fromIncluding' => 'Sat, 01 Nov 2014 15:35:48 +0000',
-            'toExcluding' => 'Sat, 25 Oct 2014 15:37:39 +0000',
-            'timeZoneID' => 'utc'
-            ))
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-//WORKER RESULTS
-public function GetInstanceProcessLiveStatistics()
-    {
-
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstanceProcessLiveStatistics';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->body(array(
-            'instanceID' => 'computechgmbh'
-            ))
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-        dd($response->body);
-    }
-
-public function GetUsers()
-    {
-    $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetUsers';
-    $response = Httpful::post($uri)             
-
-        ->authenticateWith('admin', 'RemoteCT12$') 
-        ->body(array(
-            'instanceID' => 'computechgmbh'
-            ))
-        ->addHeader('Content-Type', 'application/x-www-form-urlencoded')
-        ->sendsType(\Httpful\Mime::FORM)
-        ->send();  
-
-        $numberOfUsers = count($response->body->result);
-        return $numberOfUsers;
+    // Return the View with the values
+        return View::make('dashboard', compact('numberOfCostumers', 'results', 'totalSizeMB', 'numberOfMessages', 'numberOfUsers'));
     }
 }
