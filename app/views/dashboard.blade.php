@@ -16,7 +16,7 @@
                             <div class="small-box bg-aqua">
                                 <div class="inner">
                                     <h3>
-                                        {{ $numberCostumers }}
+                                        {{{ $numberCostumers or '-'}}}
                                     </h3>
                                     <p>
                                         Kundenanzahl

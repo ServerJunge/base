@@ -55,10 +55,19 @@ $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetInstanceStatistics
             ))
         ->sendsType(\Httpful\Mime::FORM)
         ->send();  
+
+        if (empty($response->body->result->numberOfMessages)) {
+            $numberOfMessages = '-';
+            $totalSizeMB = '-';
+        }
+
+        else {
+
        $numberOfMessages = $response->body->result->numberOfMessages;
 
         $totalSizeMB = $response->body->result->totalSizeMB;
-
+    }
+        
 
 
  $uri = 'https://mailarchiv.computech-ob.de:8474/api/invoke/GetUsers';
