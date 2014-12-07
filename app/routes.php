@@ -1,5 +1,6 @@
 <?php
-
+Route::get('/users/{user}/edit', 'UsersController@edit');
+Route::post('/users/edit', 'UsersController@handleEdit');
 // Bind route parameters for User.
 Route::model('user', 'User');
 
